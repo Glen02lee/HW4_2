@@ -1,4 +1,4 @@
-const apiURL = "http://localhost:3000/players";
+const apiURL = "https://672818c6270bd0b97554511a.mockapi.io/api/t1/players"
 let isPlayerListVisible = false;
 
 function loadPlayers() {
@@ -8,7 +8,7 @@ function loadPlayers() {
       playerList.style.display = "none";
       isPlayerListVisible = false;
   } else {
-      fetch("http://localhost:3000/players")
+      fetch("https://672818c6270bd0b97554511a.mockapi.io/api/t1/players")
           .then(response => response.json())
           .then(players => {
               allPlayers = players;
@@ -63,7 +63,7 @@ function searchPlayers() {
       career_end: careerEnd,
     };
   
-    fetch("http://localhost:3000/players", {
+    fetch("https://672818c6270bd0b97554511a.mockapi.io/api/t1/players", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
