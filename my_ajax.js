@@ -1,22 +1,23 @@
 const apiURL = "https://672818c6270bd0b97554511a.mockapi.io/api/t1/players"
 let isPlayerListVisible = false;
 
+let allPlayers = [];
 function loadPlayers() {
   const playerList = document.getElementById("player-list");
 
   if (isPlayerListVisible) {
-      playerList.style.display = "none";
-      isPlayerListVisible = false;
+    playerList.style.display = "none";
+    isPlayerListVisible = false;
   } else {
-      fetch("https://672818c6270bd0b97554511a.mockapi.io/api/t1/players")
-          .then(response => response.json())
-          .then(players => {
-              allPlayers = players;
-              displayPlayers(players);
-              playerList.style.display = "block";
-              isPlayerListVisible = true;
-          })
-          .catch(error => console.error("선수 목록을 불러오는 중 오류 발생:", error));
+    fetch("https://672818c6270bd0b97554511a.mockapi.io/api/t1/players")
+      .then(response => response.json())
+      .then(players => {
+        allPlayers = players; 
+        displayPlayers(players);
+        playerList.style.display = "block";
+        isPlayerListVisible = true;
+      })
+      .catch(error => console.error("선수 목록을 불러오는 중 오류 발생:", error));
   }
 }
 
@@ -30,23 +31,31 @@ function displayPlayers(players) {
       playerList.appendChild(playerItem);
   });
 }
-function displaySearchedPlayers(players) {
-  const searchedPlayerList = document.getElementById("searched-player-list");
-  searchedPlayerList.innerHTML = "";
+function displayPlayers(players) {
+  const playerList = document.getElementById("player-list");
+  playerList.innerHTML = "";
 
-  players.forEach(player => {
+  if (players.length === 0) {
+    playerList.innerHTML = "<p>검색 결과가 없습니다.</p>";
+  } else {
+    players.forEach(player => {
       const playerItem = document.createElement("p");
       playerItem.textContent = `ID: ${player.id}, 이름: ${player.name}, 포지션: ${player.position}, 경력: ${player.career_start} - ${player.career_end}`;
-      searchedPlayerList.appendChild(playerItem);
-  });
+      playerList.appendChild(playerItem);
+    });
+  }
 }
 
 function searchPlayers() {
   const searchTerm = document.getElementById("search").value.toLowerCase();
-  const filteredPlayers = allPlayers.filter(player =>
+  if (searchTerm) {
+    const filteredPlayers = allPlayers.filter(player =>
       player.name.toLowerCase().includes(searchTerm)
-  );
-  displayPlayers(filteredPlayers);
+    );
+    displayPlayers(filteredPlayers);
+  } else {
+    displayPlayers(allPlayers);
+  }
 }
 
 
