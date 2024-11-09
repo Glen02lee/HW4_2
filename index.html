@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>두산 최고의 선수 관리</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="my_style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js" defer></script>
+  <script src="my_ajax.js" defer></script>
+</head>
+<body>
+  <header>
+    <img src="https://thumb.mt.co.kr/06/2024/07/2024071115090418158_1.jpg" alt="두산 베어스 로고" class="logo">
+    <h1>두산 베어스 선수 관리 시스템</h1>
+  </header>
+
+  <section id="player-section">
+    <h2>선수 목록 보기</h2>
+    <button onclick="loadPlayers()" class="btn btn-primary">선수 목록 보기</button>
+    <div id="player-list" class="player-list"></div>
+
+    <h2>선수 검색</h2>
+    <input type="text" id="search" placeholder="선수 이름 검색" oninput="searchPlayers()" class="form-control">
+    <div id="searched-player-list"></div>
+
+    <!-- Add Player Modal -->
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPlayerModal">선수 추가</button>
+    <div class="modal fade" id="addPlayerModal" tabindex="-1" aria-labelledby="addPlayerModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addPlayerModalLabel">선수 추가</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="text" id="new-name" placeholder="이름" class="form-control mb-2">
+            <input type="text" id="new-position" placeholder="포지션" class="form-control mb-2">
+            <input type="number" id="new-career-start" placeholder="경력 시작 연도" class="form-control mb-2">
+            <input type="number" id="new-career-end" placeholder="경력 종료 연도" class="form-control mb-2">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="addPlayer()">추가하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updatePlayerModal">선수 수정</button>
+    <div class="modal fade" id="updatePlayerModal" tabindex="-1" aria-labelledby="updatePlayerModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updatePlayerModalLabel">선수 수정</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="number" id="update-id" placeholder="선수 ID" class="form-control mb-2">
+            <input type="text" id="update-name" placeholder="이름" class="form-control mb-2">
+            <input type="text" id="update-position" placeholder="포지션" class="form-control mb-2">
+            <input type="number" id="update-career-start" placeholder="경력 시작 연도" class="form-control mb-2">
+            <input type="number" id="update-career-end" placeholder="경력 종료 연도" class="form-control mb-2">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="updatePlayer()">수정하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2>선수 삭제</h2>
+    <input type="number" id="delete-id" placeholder="선수 ID" class="form-control mb-2">
+    <button onclick="deletePlayer()" class="btn btn-danger">삭제하기</button>
+  </section>
+
+  <footer>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQYUoW5rAlSPTYQL1jGLymAcAZ8GPNnYy7ng&s" alt="두산 마스코트 1" class="mascot">
+  </footer>
+</body>
+</html>
